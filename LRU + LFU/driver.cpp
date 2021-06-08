@@ -11,6 +11,7 @@ int main(){
     for (int i = 0; i < 5;i++){
         cout << "AFTER INSERTING: " << i+1 << endl;
         list.insert(i+1);
+        list.display();
     }
     list.display();
     int arr[5] = {8, 3, 6, 4, 5};

@@ -1,4 +1,3 @@
-//Linked list header file
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -16,12 +15,10 @@ struct ListNode
 class circleLL
 {
 private:
-    /* data */
+
 public:
     ListNode *head;
     ListNode *bottom;
-    int filled = 0;
-    int size;
     map<int, bool> inCache;
     circleLL(int n);
     void display();
@@ -34,7 +31,6 @@ public:
 
 circleLL::circleLL(int n)
 {
-    size = n;
     head = new ListNode;
     bottom = new ListNode;
     //bottom = newListNode(n-1);
@@ -76,24 +72,11 @@ void circleLL::insert(int entry){
         update(entry);
         return;
     }
-    if(filled < size){
-        int i = 0;
-        ListNode *curr = head;
-        ListNode *prev = new ListNode;
-        while(i<filled){
-            prev = curr;
-            curr = curr->next;
-            i++;
-        }
-        while(curr != head){
-            curr->val = prev->val;
-            curr->score = prev->score;
-            prev = prev->prev;
-            curr = curr->prev;
-        }
-        head->val = entry;
-        head->score = 1;
-        filled++;
+    else if(bottom->val == 0){
+        bottom->val = entry;
+        bottom->score = 1;
+        head = bottom;
+        bottom = bottom->prev;
         inCache[entry] = true;
     }
     else{

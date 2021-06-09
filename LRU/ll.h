@@ -15,12 +15,10 @@ struct ListNode
 class circleLL
 {
 private:
-    /* data */
+    
 public:
     ListNode *head;
     ListNode *bottom;
-    int filled = 0;
-    int size;
     map<int, bool> inCache;
     circleLL(int n);
     void display();
@@ -33,7 +31,6 @@ public:
 
 circleLL::circleLL(int n)
 {
-    size = n;
     head = new ListNode;
     bottom = new ListNode;
     //bottom = newListNode(n-1);
@@ -72,29 +69,13 @@ void circleLL::display()
 
 void circleLL::insert(int entry){
     if(inCache[entry]){
-        //cout<< "here"<< endl;
         update(entry);
         return;
     }
-    if(filled < size){
-        //cout << "here";
-        int i = 0;
-        ListNode *curr = head;
-        ListNode *prev = new ListNode;
-        while(i<filled){
-            prev = curr;
-            curr = curr->next;
-            i++;
-        }
-        while(curr != head){
-            curr->val = prev->val;
-            prev = prev->prev;
-            curr = curr->prev;
-        }
-        head->val = entry;
-        //cout << "here";
-        //curr->val = entry;
-        filled++;
+    else if(bottom->val == 0){
+        bottom->val = entry;
+        head = bottom;
+        bottom = bottom->prev;
         inCache[entry] = true;
     }
     else{
@@ -113,15 +94,7 @@ void circleLL::replace(int entry){
     bottom->next = head;
     head->prev = bottom;
 }
-/*void find(int entry){
-    if(inCache[entry]){
-        update(entry);
-    }
-    else{
-        replace(entry);
-    }
-}
-*/
+
 void circleLL::update(int entry){
     ListNode *curr = head;
     while(curr->val != entry){

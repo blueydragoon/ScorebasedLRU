@@ -3,17 +3,15 @@
 using namespace std;
 int main(){
     int n = 5;
-    //cin >> n;
     circleLL list(n);
-    //list.display();
     list.insert(2);
     cout << " BEFORE STARTING ARRAY INSERTS "<< endl;
+    list.display();
     for (int i = 0; i < 5;i++){
         cout << "AFTER INSERTING: " << i+1 << endl;
         list.insert(i+1);
         list.display();
     }
-    list.display();
     int arr[5] = {8, 3, 6, 4, 5};
     for (int i = 0; i < 5;i++){
         cout << "AFTER INSERTING: " << arr[i] << endl;

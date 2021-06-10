@@ -2,20 +2,44 @@
 #include "ll.h"
 using namespace std;
 int main(){
-    int n = 5;
-    circleLL list(n);
-    list.insert(2);
-    cout << " BEFORE STARTING ARRAY INSERTS "<< endl;
-    list.display();
-    for (int i = 0; i < 5;i++){
-        cout << "AFTER INSERTING: " << i+1 << endl;
-        list.insert(i+1);
-        list.display();
+    int n = 3;
+    fstream my_file;
+    fstream fout;
+    fout.open("outputexample.csv", ios::out | ios::app);
+    fout << "size" << ", "
+         << "hits" << ", "
+         << "misses" << ", "
+         << "hitRatio" << ", "
+         << "missRatio" << ", "
+         << "\n";
+    while(n < 50){
+        circleLL list(n);
+        my_file.open("./traces/trace03", ios::in);
+	    if (!my_file) {
+	        cout << "No such file";
+	    }
+        else {
+		    char ch;
+            char ch2;
+            while (1) {
+			    my_file >> ch;
+                my_file >> ch2;
+			    if (my_file.eof())
+				    break;
+                int out = 10 * (ch - '0') + ch2 - '0';
+                list.insert(out);
+            }
+	    }
+        my_file.close();
+        double hitratio = (1.00 * list.hit)/5000.00;
+        double missratio = (1.00 * list.miss)/5000.00;
+        fout << n << ", "
+             << list.hit << ", "
+             << list.miss << ", "
+             << hitratio << ", "
+             << missratio << ", "
+             << "\n";
+        n++;
     }
-    int arr[5] = {8, 3, 6, 4, 5};
-    for (int i = 0; i < 5;i++){
-        cout << "AFTER INSERTING: " << arr[i] << endl;
-        list.insert(arr[i]);
-        list.display();
-    }
+    return 0;
 }

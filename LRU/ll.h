@@ -19,7 +19,10 @@ private:
 public:
     ListNode *head;
     ListNode *bottom;
+    int hit = 0;
+    int miss = 0;
     map<int, bool> inCache;
+    map<int, bool> coldMiss;
     circleLL(int n);
     void display();
     void insert(int entry);
@@ -33,14 +36,12 @@ circleLL::circleLL(int n)
 {
     head = new ListNode;
     bottom = new ListNode;
-    //bottom = newListNode(n-1);
     ListNode *prev = bottom;
     ListNode *curr = head;
     for (int i = 0; i < n;i++){
         curr->prev = prev;
         if(i<n-2){
             curr->next = new ListNode;
-            //curr->next = new ListNode(i+1);
         }
         else if (i == n-2)
         {
@@ -64,7 +65,6 @@ void circleLL::display()
         cout << curr->val <<endl;
         curr = curr->next;
     }
-    //cout << curr->prev->val << " " << curr->val << " " << curr->next->val<<endl;
 }
 
 void circleLL::insert(int entry){
@@ -73,12 +73,24 @@ void circleLL::insert(int entry){
         return;
     }
     else if(bottom->val == 0){
+        if(coldMiss[entry]){
+            miss++;
+        }
+        else{
+            coldMiss[entry] = true;
+        }
         bottom->val = entry;
         head = bottom;
         bottom = bottom->prev;
         inCache[entry] = true;
     }
     else{
+        if(coldMiss[entry]){
+            miss++;
+        }
+        else{
+            coldMiss[entry] = true;
+        }
         replace(entry);
     }
 }

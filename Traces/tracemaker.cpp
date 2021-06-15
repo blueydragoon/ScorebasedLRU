@@ -3,7 +3,8 @@ using namespace std;
 
 int main(){
     fstream fout;
-    fout.open("trace05", ios::out | ios::app);
+    srand(time(0));
+    fout.open("trace05", ios::out | ios::trunc);
     int i = 0;
     int inst;
     char ch1 = '0';

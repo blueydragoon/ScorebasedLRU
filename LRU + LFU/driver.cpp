@@ -5,7 +5,7 @@ int main(){
     int n = 3;
     fstream my_file;
     fstream fout;
-    fout.open("outputexample.csv", ios::out | ios::app);
+    fout.open("outputexample.csv", ios::out | ios::trunc);
     fout << "size" << ", "
          << "hits" << ", "
          << "misses" << ", "

@@ -19,21 +19,26 @@ private:
 public:
     ListNode *head;
     ListNode *bottom;
+    vector<int> window;
     int hit = 0;
     int miss = 0;
     map<int, bool> inCache;
     map<int, bool> coldMiss;
-    circleLL(int n);
+    circleLL(int n,int w);
     void display();
     void insert(int entry);
     void replace(int entry);
     void find(int entry);
     void update(int entry);
+    void slide(int entry);
     ~circleLL();
 };
 
-circleLL::circleLL(int n)
+circleLL::circleLL(int n,int w)
 {
+    for (int i = 0; i < w;i++){
+        window.push_back(-1);
+    }
     head = new ListNode;
     bottom = new ListNode;
     ListNode *prev = bottom;
@@ -68,6 +73,7 @@ void circleLL::display()
 }
 
 void circleLL::insert(int entry){
+    slide(entry);
     if(inCache[entry]){
         hit++;
         update(entry);
@@ -96,12 +102,28 @@ void circleLL::insert(int entry){
     }
 }
 
-void circleLL::replace(int entry){
-    while(bottom->score > 1){
-        bottom->score--;
-        head = bottom;
-        bottom = bottom->prev;
+void circleLL::slide(int entry){
+    int last;
+    last = window[0];
+    for (int i = 1; i < window.size();i++){
+        window[i - 1] = window[i];
     }
+    window[window.size() - 1] = entry;
+    ListNode *curr = head;
+    while(curr->val != last && curr->next != head){
+        curr = curr->next;
+    }
+    if(curr == bottom){
+        if(curr->val == last){
+            curr->score--;
+        }    
+    }
+    else{
+        curr->score--;
+    }
+}
+
+void circleLL::replace(int entry){
     inCache[bottom->val] = false;
     inCache[entry] = true;
     ListNode *curr = new ListNode(entry);
@@ -135,7 +157,6 @@ void circleLL::update(int entry){
     curr->next = head;
     curr->prev = bottom;
     head = curr;
-    
 }
 
 circleLL::~circleLL()

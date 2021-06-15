@@ -1,4 +1,3 @@
-//Linked list header file
 #include <bits/stdc++.h>
 using namespace std;
 

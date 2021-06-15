@@ -14,7 +14,7 @@ int main(){
          << "\n";
     while(n < 50){
         circleLL list(n);
-        my_file.open("./traces/trace03", ios::in);
+        my_file.open("../traces/trace03", ios::in);
 	    if (!my_file) {
 	        cout << "No such file";
 	    }

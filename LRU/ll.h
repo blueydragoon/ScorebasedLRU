@@ -68,6 +68,7 @@ void circleLL::display()
 
 void circleLL::insert(int entry){
     if(inCache[entry]){
+        hit++;
         update(entry);
         return;
     }

@@ -115,20 +115,39 @@ void circleLL::geoFall(int entry){
 }
 
 void circleLL::replace(int entry){
-    while(bottom->score > 1.00){
-        head = bottom;
-        bottom = bottom->prev;
+    ListNode *curr = head;
+    ListNode *min = new ListNode();
+    min->score = INT_MAX;
+    while(1){
+        if(curr->score <= min->score){
+            min = curr;
+        }
+        if(curr->next == head){
+            break;
+        }
+        else{
+            curr = curr->next;
+        }
     }
-    inCache[bottom->val] = false;
+    if(min != head){
+        if(min == bottom){
+            head = bottom;
+            bottom = bottom->prev;
+        }
+        else{
+            min->next->prev = min->prev;
+            min->prev->next = min->next;
+            head->prev = min;
+            bottom->next = min;
+            min->next = head;
+            min->prev = bottom;
+            head = min;
+        }
+    }
+    inCache[head->val] = false;
     inCache[entry] = true;
-    ListNode *curr = new ListNode(entry);
-    curr->score = 1;
-    curr->next = head;
-    head->prev = curr;
-    head = curr;
-    bottom = bottom->prev;
-    bottom->next = head;
-    head->prev = bottom;
+    head->val = entry;
+    head->score = 1;
 }
 
 void circleLL::update(int entry){

@@ -4,7 +4,7 @@ using namespace std;
 int main(){
     fstream fout;
     srand(time(0));
-    fout.open("trace05", ios::out | ios::trunc);
+    fout.open("./Traces/trace01", ios::out | ios::trunc);
     int i = 0;
     int inst;
     char ch1 = '0';

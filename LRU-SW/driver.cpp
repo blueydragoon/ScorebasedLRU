@@ -7,7 +7,7 @@ int main(){
     int w = 10;
     fstream my_file;
     fstream fout;
-    fout.open("outputexample.csv", ios::out | ios::trunc);
+    fout.open("SW1.csv", ios::out | ios::trunc);
     fout << "size" << ", "
          << "window" << ","
          << "hits" << ", "
@@ -20,7 +20,7 @@ int main(){
         while (w < n/2 + 1)
         {
             circleLL list(n,w);
-            my_file.open("../traces/trace03", ios::in);
+            my_file.open("./traces/trace01", ios::in);
             if (!my_file)
             {
                 cout << "No such file";
@@ -40,8 +40,8 @@ int main(){
                 }
             }
             my_file.close();
-            double hitratio = (1.00 * list.hit) / 5000.00;
-            double missratio = (1.00 * list.miss) / 5000.00;
+            double hitratio = (1.00 * list.hit) / 10000.00;
+            double missratio = (1.00 * list.miss) / 10000.00;
             fout << n << ", "
                  << w << ","
                  << list.hit << ", "

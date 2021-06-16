@@ -6,8 +6,9 @@ int main(){
     double fallFac = 0.9;
     fstream my_file;
     fstream fout;
-    fout.open("GEO1.csv", ios::out | ios::trunc);
+    fout.open("./CSV-Files/GEO1.csv", ios::out | ios::trunc);
     fout << "size" << ", "
+         << "Fall Factor" << ","
          << "hits" << ", "
          << "misses" << ", "
          << "hitRatio" << ", "

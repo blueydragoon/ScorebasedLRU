@@ -4,10 +4,10 @@ using namespace std;
 
 int main(){
     int n = 15;
-    int w = 10;
+    int w = 4;
     fstream my_file;
     fstream fout;
-    fout.open("./CSV-Files/SW2.csv", ios::out | ios::trunc);
+    fout.open("./CSV-Files/SW1.csv", ios::out | ios::trunc);
     fout << "size" << ", "
          << "window" << ","
          << "hits" << ", "
@@ -16,11 +16,8 @@ int main(){
          << "missRatio" << ", "
          << "\n";
     for (n = 3; n < 50; n++){
-        w = 2;
-        while (w < n/2 + 1)
-        {
             circleLL list(n,w);
-            my_file.open("./traces/trace02", ios::in);
+            my_file.open("./traces/trace01", ios::in);
             if (!my_file)
             {
                 cout << "No such file";
@@ -49,8 +46,6 @@ int main(){
                  << hitratio << ", "
                  << missratio << ", "
                  << "\n";
-            w++;
-        }
     }
     return 0;
 }

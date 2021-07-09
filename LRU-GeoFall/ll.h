@@ -3,10 +3,10 @@ using namespace std;
 
 struct ListNode
 {
-    int val;
-    double score;
-    ListNode *next;
-    ListNode *prev;
+    int val;       // will contain the page number;
+    double score;  // contains the score of a particular page;
+    ListNode *next; // next node in the linked list;
+    ListNode *prev; // prev node in the linked list;
     ListNode() : val(0), score(0), next(nullptr) {}
     ListNode(int x) : val(x), score(0), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), score(0), next(next) {}
@@ -17,20 +17,19 @@ class circleLL
 private:
 
 public:
-    ListNode *head;
-    ListNode *bottom;
-    int hit = 0;
-    int miss = 0;
-    double fallFac;
-    map<int, bool> inCache;
-    map<int, bool> coldMiss;
-    circleLL(int n,double w);
-    void display();
-    void insert(int entry);
-    void replace(int entry);
-    void find(int entry);
-    void update(int entry);
-    void geoFall(int entry);
+    ListNode *head;  //head of the linked list;
+    ListNode *bottom; //bottom of the linked list;
+    int hit = 0;      //number of hits;
+    int miss = 0;     // number of misses(excluding cold misses);
+    double fallFac;   //a measure to decide how impactful geo fading will be;
+    map<int, bool> inCache; //if a page is in cache the its entry will be true else false;
+    map<int, bool> coldMiss; //if a page has been requested before then then its entry will be true;
+    circleLL(int n, double w); //constructor;
+    void display();            // will display the current contents of the cache;
+    void insert(int entry);    //will check the cache for space/page already in cache;
+    void replace(int entry);   //will replace the least recently used entry with the requested one;
+    void update(int entry);    // will bring the requested entry to the top of the list;
+    void geoFall(int entry);   // will decide the decrease score of an entry by a factor of fallFac;
     ~circleLL();
 };
 
@@ -71,12 +70,12 @@ void circleLL::display()
 }
 
 void circleLL::insert(int entry){
-    geoFall(entry);
-    if(inCache[entry]){
+    geoFall(entry);// updating the score
+    if(inCache[entry]){//checking the cache for the requested page
         hit++;
         update(entry);
     }
-    else if(bottom->val == 0){
+    else if(bottom->val == 0){//will check if the cache is empty
         if(coldMiss[entry]){
             miss++;
         }
@@ -84,7 +83,7 @@ void circleLL::insert(int entry){
             coldMiss[entry] = true;
         }
         bottom->val = entry;
-        bottom->score = 1;
+        bottom->score = 1; // setting a request score on 1;
         head = bottom;
         bottom = bottom->prev;
         inCache[entry] = true;

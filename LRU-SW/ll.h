@@ -3,10 +3,10 @@ using namespace std;
 
 struct ListNode
 {
-    int val;
-    int score;
-    ListNode *next;
-    ListNode *prev;
+    int val;        // will contain the page number
+    int score;      // score/freq of a page within the window
+    ListNode *next; // next node in the linked list
+    ListNode *prev; // prev node in the linked list
     ListNode() : val(0), score(0), next(nullptr) {}
     ListNode(int x) : val(x), score(0), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), score(0), next(next) {}
@@ -28,9 +28,8 @@ public:
     void display();
     void insert(int entry);
     void replace(int entry);
-    void find(int entry);
     void update(int entry);
-    void slide(int entry);
+    void slide(int entry); // discard the last entry of the window and will do the needful for the next
     ~circleLL();
 };
 

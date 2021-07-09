@@ -4,13 +4,13 @@ using namespace std;
 
 struct ListNode
 {
-    int val;
-    long long timeCounter = 0;
-    int lastAccess = 1;
-    int freq = 1;
-    double weight = 0.00;
-    ListNode *next;
-    ListNode *prev;
+    int val;                   // will contain the page number;
+    long long timeCounter = 0; // time since last request;
+    int lastAccess = 1;        //time between last two request;
+    int freq = 1;              //frequency of the page;
+    double weight = 0.00;      //timecounter/lastAccess*freq;
+    ListNode *next;            // next node in the linked list;
+    ListNode *prev;            // prev node in the linked list;
     ListNode() : val(0), next(nullptr) {}
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
@@ -21,19 +21,18 @@ class circleLL
 private:
     
 public:
-    ListNode *head;
-    ListNode *bottom;
-    int hit = 0;
-    int miss = 0;
-    map<int, bool> inCache;
-    map<int, bool> coldMiss;
-    circleLL(int n);
-    void display();
-    void insert(int entry);
-    void replace(int entry);
-    void find(int entry);
-    void entryHit(int entry);
-    void updateScore();
+    ListNode *head;   //head of the linked list;
+    ListNode *bottom; //bottom of the linked list;
+    int hit = 0;      //number of hits;
+    int miss = 0;            // number of misses(excluding cold misses);
+    map<int, bool> inCache;  //if a page is in cache the its entry will be true else false;
+    map<int, bool> coldMiss; //if a page has been requested before then then its entry will be true;
+    circleLL(int n);        //constructor;
+    void display(); // will display the current contents of the cache;
+    void insert(int entry);   //will check the cache for space/page already in cache;
+    void replace(int entry);  //will replace the least recently used entry with the requested one;
+    void entryHit(int entry); // will bring the requested entry to the top of the list;
+    void updateScore();       //updates the score of every entry;
     ~circleLL();
 };
 

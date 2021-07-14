@@ -8,7 +8,7 @@ int main(){
     double fallFac = 0.9;
     fstream my_file;
     fstream fout;
-    fout.open("./CSV-Files/GEO1.csv", ios::out | ios::trunc);
+    fout.open("./CSV-Files/GEO5.csv", ios::out | ios::trunc);
     fout << "size" << ", "
          << "Fall Factor" << ","
          << "hits" << ", "
@@ -20,7 +20,7 @@ int main(){
     while(n < 50){
         auto start = high_resolution_clock::now();
         circleLL list(n,fallFac);
-        my_file.open("./traces/trace01", ios::in);
+        my_file.open("./traces/trace05", ios::in);
 	    if (!my_file) {
 	        cout << "No such file";
 	    }

@@ -7,7 +7,7 @@ int main(){
     int n = 3;
     fstream my_file;
     fstream fout;
-    fout.open("./CSV-Files/RECE1.csv", ios::out | ios::trunc);
+    fout.open("./CSV-Files/RECE5.csv", ios::out | ios::trunc);
     fout << "size" << ", "
          << "hits" << ", "
          << "misses" << ", "
@@ -18,7 +18,7 @@ int main(){
     while(n < 50){
         auto start = high_resolution_clock::now();
         circleLL list(n);
-        my_file.open("./traces/trace01", ios::in);
+        my_file.open("./traces/trace05", ios::in);
 	    if (!my_file) {
 	        cout << "No such file";
 	    }

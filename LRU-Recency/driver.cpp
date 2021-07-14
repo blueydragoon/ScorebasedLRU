@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
+#include <chrono>
 #include "ll.h"
 using namespace std;
+using namespace std::chrono;
 int main(){
     int n = 3;
     fstream my_file;
@@ -11,8 +13,10 @@ int main(){
          << "misses" << ", "
          << "hitRatio" << ", "
          << "missRatio" << ", "
+         << "executionTime"<< ","
          << "\n";
     while(n < 50){
+        auto start = high_resolution_clock::now();
         circleLL list(n);
         my_file.open("./traces/trace01", ios::in);
 	    if (!my_file) {
@@ -31,6 +35,8 @@ int main(){
             }
 	    }
         my_file.close();
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
         double hitratio = (1.00 * list.hit)/10000.00;
         double missratio = (1.00 * list.miss)/10000.00;
         fout << n << ", "
@@ -38,6 +44,7 @@ int main(){
              << list.miss << ", "
              << hitratio << ", "
              << missratio << ", "
+             << duration.count()<< ","
              << "\n";
         n++;
     }
